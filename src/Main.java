@@ -1,7 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
+
+    static JButton button;
+    static JTextField textField;
+
     public static void main(String[] args) {
 
         JPanel panel = new JPanel();
@@ -22,13 +28,22 @@ public class Main {
         label.setBounds(230, 0, screenWidth, screenHeight / 10);
         panel.add(label);
 
-        JTextField textField = new JTextField();
+        textField = new JTextField();
         textField.setBounds(100, 100, 300, 25);
         panel.add(textField);
 
-        JButton button = new JButton("Check");
+        button = new JButton("Check");
         button.setBounds(420, 100, 80, 25);
         panel.add(button);
+
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == button) {
+                    String text = textField.getText();
+                    System.out.println(text);
+                }
+            }
+        });
 
         frame.setVisible(true);
     }
