@@ -23,8 +23,12 @@ public class Main {
         panel.add(label);
 
         JTextField textField = new JTextField();
-        textField.setBounds(150, 100, 300, 25);
+        textField.setBounds(100, 100, 300, 25);
         panel.add(textField);
+
+        JButton button = new JButton("Check");
+        button.setBounds(420, 100, 80, 25);
+        panel.add(button);
 
         frame.setVisible(true);
     }
