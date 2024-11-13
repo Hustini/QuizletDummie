@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -10,6 +12,23 @@ public class Main {
 
         int screenWidth = 600;
         int screenHeight = 400;
+
+        // Hashmap to store data
+        HashMap<String, String> vocabulary = new HashMap<String, String>();
+        vocabulary.put("Haus", "House");
+        vocabulary.put("Baum", "Tree");
+        vocabulary.put("Auto", "Car");
+        vocabulary.put("Buch", "Book");
+        vocabulary.put("Hund", "Dog");
+        vocabulary.put("Katze", "Cat");
+        vocabulary.put("Apfel", "Apple");
+        vocabulary.put("Wasser", "Water");
+        vocabulary.put("Tisch", "Table");
+        vocabulary.put("Stuhl", "Chair");
+
+        for (String i : vocabulary.values()) {
+            System.out.println(i);
+        }
 
         // Standard frame
         JFrame frame = new JFrame("Quizlet Dummie");
