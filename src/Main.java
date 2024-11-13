@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 
 public class Main {
@@ -26,7 +28,14 @@ public class Main {
         vocabulary.put("Tisch", "Table");
         vocabulary.put("Stuhl", "Chair");
 
-        for (String i : vocabulary.values()) {
+        // Get all keys as a Set
+        Set<String> keys = vocabulary.keySet();
+        System.out.println("Keys: " + keys);
+        ArrayList<String> keyList = new ArrayList<>(keys);
+        System.out.println("Keys as List: " + keyList);
+        int[] index = {0};
+
+        for (String i : vocabulary.keySet()) {
             System.out.println(i);
         }
 
@@ -41,23 +50,30 @@ public class Main {
 
         // Label for a title
         JLabel label = new JLabel("Quizlet Dummie");
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        label.setFont(new Font("Times New Roman", Font.PLAIN, 24));
         label.setBounds(230, 0, screenWidth, screenHeight / 10);
         panel.add(label);
 
+        JLabel questionLabel = new JLabel(keyList.getFirst());
+        questionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        questionLabel.setBounds(175, 100, screenWidth, screenHeight / 10);
+        panel.add(questionLabel);
+
         //Text field to get user input
         JTextField textField = new JTextField();
-        textField.setBounds(100, 100, 300, 25);
+        textField.setBounds(100, 200, 300, 25);
         panel.add(textField);
 
         // Button to check user input
         JButton button = new JButton("Check");
-        button.setBounds(420, 100, 80, 25);
+        button.setBounds(420, 200, 80, 25);
         panel.add(button);
 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == button) {
+                    index[0]++;
+                    questionLabel.setText(keyList.get(index[0]));
                     String text = textField.getText();
                     System.out.println(text);
                 }
