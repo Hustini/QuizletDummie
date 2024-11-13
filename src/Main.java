@@ -17,16 +17,16 @@ public class Main {
 
         // Hashmap to store data
         HashMap<String, String> vocabulary = new HashMap<String, String>();
-        vocabulary.put("Haus", "House");
-        vocabulary.put("Baum", "Tree");
-        vocabulary.put("Auto", "Car");
-        vocabulary.put("Buch", "Book");
-        vocabulary.put("Hund", "Dog");
-        vocabulary.put("Katze", "Cat");
-        vocabulary.put("Apfel", "Apple");
-        vocabulary.put("Wasser", "Water");
-        vocabulary.put("Tisch", "Table");
-        vocabulary.put("Stuhl", "Chair");
+        vocabulary.put("Haus", "house");
+        vocabulary.put("Baum", "tree");
+        vocabulary.put("Auto", "car");
+        vocabulary.put("Buch", "book");
+        vocabulary.put("Hund", "dog");
+        vocabulary.put("Katze", "cat");
+        vocabulary.put("Apfel", "apple");
+        vocabulary.put("Wasser", "water");
+        vocabulary.put("Tisch", "table");
+        vocabulary.put("Stuhl", "chair");
 
         // Get all keys as a Set
         Set<String> keys = vocabulary.keySet();
