@@ -72,8 +72,12 @@ public class Main {
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == button) {
-                    index[0]++;
-                    questionLabel.setText(keyList.get(index[0]));
+                    if(index[0] > keyList.size()) {
+                        System.out.println("Index out of bounds");
+                    } else {
+                        index[0]++;
+                        questionLabel.setText(keyList.get(index[0]));
+                    }
                     String text = textField.getText();
                     System.out.println(text);
                 }
