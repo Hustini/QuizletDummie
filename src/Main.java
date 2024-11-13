@@ -35,6 +35,9 @@ public class Main {
         System.out.println("Keys as List: " + keyList);
         int[] index = {0};
 
+        // List with learned vocabulary
+        HashMap<String, String> learnedVocabulary = new HashMap<String, String>();
+
         // Standard frame
         JFrame frame = new JFrame("Quizlet Dummie");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,8 +49,10 @@ public class Main {
 
         // Label for a title
         JLabel label = new JLabel("Quizlet Dummie");
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        label.setBounds(175, 0, screenWidth, screenHeight / 10);
+        label.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+        int labelWidth = label.getPreferredSize().width;
+        int labelX = (screenWidth - labelWidth) / 2;
+        label.setBounds(labelX, 0, labelWidth, screenHeight / 10);
         panel.add(label);
 
         JLabel questionLabel = new JLabel(keyList.getFirst());
@@ -71,6 +76,8 @@ public class Main {
                     try {
                         if(vocabulary.get(keyList.get(index[0])).equals(textField.getText())) {
                             System.out.println("Correct: " + vocabulary.get(keyList.get(index[0])));
+                            learnedVocabulary.put(keyList.get(index[0]), textField.getText());
+                            System.out.println(learnedVocabulary);
                         } else {
                             System.out.println("Incorrect");
                             System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
