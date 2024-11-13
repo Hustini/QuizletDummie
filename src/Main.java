@@ -31,14 +31,9 @@ public class Main {
 
         // Get all keys as a Set
         Set<String> keys = vocabulary.keySet();
-        System.out.println("Keys: " + keys);
         ArrayList<String> keyList = new ArrayList<>(keys);
         System.out.println("Keys as List: " + keyList);
         int[] index = {0};
-
-        for (String i : vocabulary.keySet()) {
-            System.out.println(i);
-        }
 
         // Standard frame
         JFrame frame = new JFrame("Quizlet Dummie");
@@ -73,16 +68,19 @@ public class Main {
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == button) {
-                    if(index[0] > keyList.size()) {
-                        System.out.println("Index out of bounds");
-                    } else {
+                    try {
                         if(vocabulary.get(keyList.get(index[0])).equals(textField.getText())) {
-                            System.out.println("Correct");
+                            System.out.println("Correct: " + vocabulary.get(keyList.get(index[0])));
                         } else {
                             System.out.println("Incorrect");
+                            System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
                         }
                         index[0]++;
                         questionLabel.setText(keyList.get(index[0]));
+                    }
+                    catch(Exception error) {
+                        questionLabel.setText("Done");
+                        System.out.println(error.getMessage());
                     }
                 }
             }
