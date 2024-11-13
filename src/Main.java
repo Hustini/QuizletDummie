@@ -14,6 +14,7 @@ public class Main {
 
         int screenWidth = 600;
         int screenHeight = 400;
+        int posX = 100;
 
         // Hashmap to store data
         HashMap<String, String> vocabulary = new HashMap<String, String>();
@@ -51,22 +52,22 @@ public class Main {
         // Label for a title
         JLabel label = new JLabel("Quizlet Dummie");
         label.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        label.setBounds(230, 0, screenWidth, screenHeight / 10);
+        label.setBounds(175, 0, screenWidth, screenHeight / 10);
         panel.add(label);
 
         JLabel questionLabel = new JLabel(keyList.getFirst());
         questionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        questionLabel.setBounds(175, 100, screenWidth, screenHeight / 10);
+        questionLabel.setBounds(posX, 100, screenWidth, screenHeight / 10);
         panel.add(questionLabel);
 
         //Text field to get user input
         JTextField textField = new JTextField();
-        textField.setBounds(100, 200, 300, 25);
+        textField.setBounds(posX, 200, 300, 25);
         panel.add(textField);
 
         // Button to check user input
         JButton button = new JButton("Check");
-        button.setBounds(420, 200, 80, 25);
+        button.setBounds(posX + 320, 200, 80, 25);
         panel.add(button);
 
         button.addActionListener(new ActionListener() {
@@ -75,11 +76,14 @@ public class Main {
                     if(index[0] > keyList.size()) {
                         System.out.println("Index out of bounds");
                     } else {
+                        if(vocabulary.get(keyList.get(index[0])).equals(textField.getText())) {
+                            System.out.println("Correct");
+                        } else {
+                            System.out.println("Incorrect");
+                        }
                         index[0]++;
                         questionLabel.setText(keyList.get(index[0]));
                     }
-                    String text = textField.getText();
-                    System.out.println(text);
                 }
             }
         });
