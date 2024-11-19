@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -17,17 +19,9 @@ public class Main {
         int posX = 100;
 
         // Hashmap to store data
-        HashMap<String, String> vocabulary = new HashMap<String, String>();
-        vocabulary.put("Haus", "house");
-        vocabulary.put("Baum", "tree");
-        vocabulary.put("Auto", "car");
-        vocabulary.put("Buch", "book");
-        vocabulary.put("Hund", "dog");
-        vocabulary.put("Katze", "cat");
-        vocabulary.put("Apfel", "apple");
-        vocabulary.put("Wasser", "water");
-        vocabulary.put("Tisch", "table");
-        vocabulary.put("Stuhl", "chair");
+        String filePath = "src/data.csv";
+        HashMap<String, String> vocabulary = readCSV(filePath);
+        System.out.println(vocabulary);
 
         // Get all keys as a Set
         Set<String> keys = vocabulary.keySet();
@@ -96,6 +90,20 @@ public class Main {
         });
 
         frame.setVisible(true);
+    }
+
+    public static HashMap<String, String> readCSV(String filePath) {
+        HashMap<String, String> test = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(";");
+                test.put(values[0], values[1]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return test;
     }
 
     public static int getNextQuestion() {
