@@ -74,6 +74,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == button) {
                     try {
+                        // using the list of keys checking the user input and if its correct add it to a list
                         if(vocabulary.get(keyList.get(index[0])).equals(textField.getText())) {
                             System.out.println("Correct: " + vocabulary.get(keyList.get(index[0])));
                             learnedVocabulary.put(keyList.get(index[0]), textField.getText());
@@ -82,6 +83,7 @@ public class Main {
                             System.out.println("Incorrect");
                             System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
                         }
+                        // get the next question
                         System.out.println(getNextQuestion());
                         index[0]++;
                         questionLabel.setText(keyList.get(index[0]));
