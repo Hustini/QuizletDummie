@@ -82,10 +82,10 @@ public class Main {
                             System.out.println("Incorrect");
                             System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
                         }
+                        System.out.println(getNextQuestion());
                         index[0]++;
                         questionLabel.setText(keyList.get(index[0]));
-                    }
-                    catch(Exception error) {
+                    } catch(Exception error) {
                         questionLabel.setText("Done");
                         System.out.println(error.getMessage());
                     }
@@ -94,5 +94,10 @@ public class Main {
         });
 
         frame.setVisible(true);
+    }
+
+    public static int getNextQuestion() {
+        int test = (int) Math.floor(Math.random() * 10);
+        return test;
     }
 }
