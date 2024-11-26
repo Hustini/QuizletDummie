@@ -21,7 +21,7 @@ public class Main {
         // Hashmap to store data
         String filePath = "src/data.csv";
         HashMap<String, String> vocabulary = readCSV(filePath);
-        System.out.println(vocabulary);
+        System.out.println("Vocab Hashmap:" + vocabulary);
 
         // Get all keys as a Set
         Set<String> keys = vocabulary.keySet();
@@ -78,7 +78,7 @@ public class Main {
                             System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
                         }
                         // get the next question
-                        System.out.println(getNextQuestion());
+                        System.out.println(getNextQuestion(keyList));
                         index[0]++;
                         questionLabel.setText(keyList.get(index[0]));
                     } catch(Exception error) {
@@ -106,8 +106,11 @@ public class Main {
         return test;
     }
 
-    public static int getNextQuestion() {
-        int test = (int) Math.floor(Math.random() * 10);
-        return test;
+    public static String getNextQuestion(ArrayList<String> keyList) {
+        /* First Step: get a random number from 0 to the length of the key list
+        Second step: get the key with the index
+         */
+        int randomIndex = (int) Math.floor(Math.random() * keyList.size());
+        return keyList.get(randomIndex);
     }
 }
