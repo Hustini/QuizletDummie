@@ -49,7 +49,7 @@ public class Main {
         final String[] key = {keyList.getFirst()};
         JLabel questionLabel = new JLabel(key[0]);
         questionLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        questionLabel.setForeground(new Color(34, 139, 34)); // Forest green
+        questionLabel.setForeground(new Color(0, 0, 0));
         questionLabel.setBounds(50, 100, screenWidth - 100, 30);
         questionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(questionLabel);
