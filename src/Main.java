@@ -69,10 +69,9 @@ public class Main {
                         // using the list of keys checking the user input and if its correct add it to a list
                         if(vocabulary.get(key[0]).equals(textField.getText())) {
                             System.out.println("Correct");
-                            // System.out.println(learnedVocabulary);
                         } else {
-                            // System.out.println("Incorrect");
-                            // System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
+                            System.out.println("Incorrect");
+                            System.out.println("Correct answer: " + vocabulary.get(key[0]));
                         }
                         // get the next question
                         String newQuestion = getRandomQuestion(keyList);
