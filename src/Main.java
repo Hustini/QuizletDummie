@@ -27,7 +27,6 @@ public class Main {
         Set<String> keys = vocabulary.keySet();
         ArrayList<String> keyList = new ArrayList<>(keys);
         System.out.println("Keys as List: " + keyList);
-        int[] index = {0};
 
         // Standard frame
         JFrame frame = new JFrame("Quizlet Dummie");
@@ -69,17 +68,19 @@ public class Main {
                         // using the list of keys checking the user input and if its correct add it to a list
                         if(vocabulary.get(key[0]).equals(textField.getText())) {
                             System.out.println("Correct");
+                            keyList.remove(key[0]);
                         } else {
                             System.out.println("Incorrect");
                             System.out.println("Correct answer: " + vocabulary.get(key[0]));
                         }
+                        // clear text field
+                        textField.setText("");
                         // get the next question
                         String newQuestion = getRandomQuestion(keyList);
                         key[0] = newQuestion;
                         questionLabel.setText(newQuestion);
                     } catch(Exception error) {
-                        questionLabel.setText("Done");
-                        System.out.println(error.getMessage());
+                        System.exit(0);
                     }
                 }
             }
