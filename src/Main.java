@@ -12,11 +12,8 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
 
-        JPanel panel = new JPanel();
-
         int screenWidth = 600;
         int screenHeight = 400;
-        int posX = 100;
 
         // Hashmap to store data
         String filePath = "src/data.csv";
@@ -33,54 +30,74 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(screenWidth, screenHeight);
         frame.setLocationRelativeTo(null);
-        frame.add(panel);
 
+        // Main Panel
+        JPanel panel = new JPanel();
         panel.setLayout(null);
+        panel.setBackground(new Color(240, 248, 255)); // Light blue background
+        frame.add(panel);
 
         // Label for a title
         JLabel label = new JLabel("Quizlet Dummie");
-        label.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-        int labelWidth = label.getPreferredSize().width;
-        int labelX = (screenWidth - labelWidth) / 2;
-        label.setBounds(labelX, 0, labelWidth, screenHeight / 10);
+        label.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        label.setForeground(new Color(0, 51, 102)); // Navy blue
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setBounds(0, 20, screenWidth, 30);
         panel.add(label);
 
+        // First question
         final String[] key = {keyList.getFirst()};
         JLabel questionLabel = new JLabel(key[0]);
-        questionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-        questionLabel.setBounds(posX, 100, screenWidth, screenHeight / 10);
+        questionLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        questionLabel.setForeground(new Color(34, 139, 34)); // Forest green
+        questionLabel.setBounds(50, 100, screenWidth - 100, 30);
+        questionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(questionLabel);
 
-        //Text field to get user input
+        // Text field to get user input
         JTextField textField = new JTextField();
-        textField.setBounds(posX, 200, 300, 25);
+        textField.setFont(new Font("Arial", Font.PLAIN, 16));
+        textField.setBounds(150, 150, 300, 30);
+        textField.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(textField);
 
         // Button to check user input
         JButton button = new JButton("Check");
-        button.setBounds(posX + 320, 200, 80, 25);
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setBackground(new Color(0, 102, 204)); // Blue
+        button.setForeground(Color.WHITE);
+        button.setBounds(250, 200, 100, 30);
         panel.add(button);
+
+        // Feedback label
+        JLabel feedbackLabel = new JLabel("");
+        feedbackLabel.setFont(new Font("Arial", Font.ITALIC, 16));
+        feedbackLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        feedbackLabel.setBounds(50, 250, screenWidth - 100, 30);
+        panel.add(feedbackLabel);
 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == button) {
+                if (e.getSource() == button) {
                     try {
-                        // using the list of keys checking the user input and if its correct add it to a list
-                        if(vocabulary.get(key[0]).equals(textField.getText())) {
-                            System.out.println("Correct");
+                        if (vocabulary.get(key[0]).equalsIgnoreCase(textField.getText().trim())) {
+                            feedbackLabel.setText("Correct!");
+                            feedbackLabel.setForeground(new Color(34, 139, 34)); // Green
                             keyList.remove(key[0]);
                         } else {
-                            System.out.println("Incorrect");
-                            System.out.println("Correct answer: " + vocabulary.get(key[0]));
+                            feedbackLabel.setText("Incorrect! Correct answer: " + vocabulary.get(key[0]));
+                            feedbackLabel.setForeground(Color.RED);
                         }
                         // clear text field
                         textField.setText("");
-                        // get the next question
+                        // get and display next question
                         String newQuestion = getRandomQuestion(keyList);
                         key[0] = newQuestion;
                         questionLabel.setText(newQuestion);
-                    } catch(Exception error) {
-                        System.exit(0);
+                    } catch (Exception error) {
+                        questionLabel.setText("Congratulations! You've completed all questions.");
+                        button.setEnabled(false);
+                        textField.setEnabled(false);
                     }
                 }
             }
