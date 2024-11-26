@@ -29,9 +29,6 @@ public class Main {
         System.out.println("Keys as List: " + keyList);
         int[] index = {0};
 
-        // List with learned vocabulary
-        HashMap<String, String> learnedVocabulary = new HashMap<String, String>();
-
         // Standard frame
         JFrame frame = new JFrame("Quizlet Dummie");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +46,7 @@ public class Main {
         label.setBounds(labelX, 0, labelWidth, screenHeight / 10);
         panel.add(label);
 
-        JLabel questionLabel = new JLabel(keyList.getFirst());
+        JLabel questionLabel = new JLabel(getRandomQuestion(keyList));
         questionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         questionLabel.setBounds(posX, 100, screenWidth, screenHeight / 10);
         panel.add(questionLabel);
@@ -70,15 +67,14 @@ public class Main {
                     try {
                         // using the list of keys checking the user input and if its correct add it to a list
                         if(vocabulary.get(keyList.get(index[0])).equals(textField.getText())) {
-                            System.out.println("Correct: " + vocabulary.get(keyList.get(index[0])));
-                            learnedVocabulary.put(keyList.get(index[0]), textField.getText());
-                            System.out.println(learnedVocabulary);
+                            // System.out.println("Correct: " + vocabulary.get(keyList.get(index[0])));
+                            // System.out.println(learnedVocabulary);
                         } else {
-                            System.out.println("Incorrect");
-                            System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
+                            // System.out.println("Incorrect");
+                            // System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
                         }
                         // get the next question
-                        System.out.println(getNextQuestion(keyList));
+                        System.out.println(getRandomQuestion(keyList));
                         index[0]++;
                         questionLabel.setText(keyList.get(index[0]));
                     } catch(Exception error) {
@@ -106,7 +102,7 @@ public class Main {
         return test;
     }
 
-    public static String getNextQuestion(ArrayList<String> keyList) {
+    public static String getRandomQuestion(ArrayList<String> keyList) {
         /* First Step: get a random number from 0 to the length of the key list
         Second step: get the key with the index
          */
