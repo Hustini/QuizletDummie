@@ -46,7 +46,8 @@ public class Main {
         label.setBounds(labelX, 0, labelWidth, screenHeight / 10);
         panel.add(label);
 
-        JLabel questionLabel = new JLabel(getRandomQuestion(keyList));
+        final String[] key = {keyList.getFirst()};
+        JLabel questionLabel = new JLabel(key[0]);
         questionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         questionLabel.setBounds(posX, 100, screenWidth, screenHeight / 10);
         panel.add(questionLabel);
@@ -66,17 +67,17 @@ public class Main {
                 if(e.getSource() == button) {
                     try {
                         // using the list of keys checking the user input and if its correct add it to a list
-                        if(vocabulary.get(keyList.get(index[0])).equals(textField.getText())) {
-                            // System.out.println("Correct: " + vocabulary.get(keyList.get(index[0])));
+                        if(vocabulary.get(key[0]).equals(textField.getText())) {
+                            System.out.println("Correct");
                             // System.out.println(learnedVocabulary);
                         } else {
                             // System.out.println("Incorrect");
                             // System.out.println("Correct answer: " + vocabulary.get(keyList.get(index[0])));
                         }
                         // get the next question
-                        System.out.println(getRandomQuestion(keyList));
-                        index[0]++;
-                        questionLabel.setText(keyList.get(index[0]));
+                        String newQuestion = getRandomQuestion(keyList);
+                        key[0] = newQuestion;
+                        questionLabel.setText(newQuestion);
                     } catch(Exception error) {
                         questionLabel.setText("Done");
                         System.out.println(error.getMessage());
