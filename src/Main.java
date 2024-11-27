@@ -16,15 +16,9 @@ public class Main {
         int screenWidth = 600;
         int screenHeight = 400;
 
-        // Hashmap to store data
-        String filePath = "Data/data.csv";
-        HashMap<String, String> vocabulary = readCSV(filePath);
-        System.out.println("Vocab Hashmap:" + vocabulary);
-
-        // Get all keys as a Set
-        Set<String> keys = vocabulary.keySet();
-        ArrayList<String> keyList = new ArrayList<>(keys);
-        System.out.println("Keys as List: " + keyList);
+        // Initialize vocab and keyList for later use. Will be overwritten later
+        HashMap<String, String> vocabulary = null;
+        ArrayList<String> keyList = new ArrayList<>();
 
         // Standard frame
         JFrame frame = new JFrame("Quizlet Dummie");
@@ -51,8 +45,8 @@ public class Main {
         quizPanel.add(label);
 
         // First question
-        final String[] key = {keyList.getFirst()};
-        JLabel questionLabel = new JLabel(key[0]);
+        final String[] key = {"Tmp"};
+        JLabel questionLabel = new JLabel();
         questionLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         questionLabel.setForeground(new Color(0, 0, 0));
         questionLabel.setBounds(50, 100, screenWidth - 100, 30);
@@ -80,33 +74,6 @@ public class Main {
         feedbackLabel.setHorizontalAlignment(SwingConstants.CENTER);
         feedbackLabel.setBounds(50, 250, screenWidth - 100, 30);
         quizPanel.add(feedbackLabel);
-
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == button) {
-                    try {
-                        if (vocabulary.get(key[0]).equalsIgnoreCase(textField.getText().trim())) {
-                            feedbackLabel.setText("Correct!");
-                            feedbackLabel.setForeground(new Color(34, 139, 34)); // Green
-                            keyList.remove(key[0]);
-                        } else {
-                            feedbackLabel.setText("Incorrect! Correct answer: " + vocabulary.get(key[0]));
-                            feedbackLabel.setForeground(Color.RED);
-                        }
-                        // clear text field
-                        textField.setText("");
-                        // get and display next question
-                        String newQuestion = getRandomQuestion(keyList);
-                        key[0] = newQuestion;
-                        questionLabel.setText(newQuestion);
-                    } catch (Exception error) {
-                        questionLabel.setText("Congratulations! You've completed all questions.");
-                        button.setEnabled(false);
-                        textField.setEnabled(false);
-                    }
-                }
-            }
-        });
 
         // Start screen panel
         JPanel startScreenPanel = new JPanel();
@@ -137,12 +104,12 @@ public class Main {
                     String selectedFileName = clickedButton.getText();
                     String selectedFilePath = "Data/" + selectedFileName;
 
-                    HashMap<String, String> selectedVocabulary = readCSV(selectedFilePath);
+                    HashMap<String, String> vocabulary = readCSV(selectedFilePath);
+                    System.out.println("Vocab Hashmap:" + vocabulary);
 
-                    vocabulary.clear();
-                    vocabulary.putAll(selectedVocabulary);
-                    keyList.clear();
-                    keyList.addAll(vocabulary.keySet());
+                    Set<String> keys = vocabulary.keySet();
+                    ArrayList<String> keyList = new ArrayList<>(keys);
+                    System.out.println("Keys as List: " + keyList);
 
                     // Set the first question
                     key[0] = getRandomQuestion(keyList);
@@ -159,6 +126,33 @@ public class Main {
                 }
             });
         }
+
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == button) {
+                    try {
+                        if (vocabulary.get(key[0]).equalsIgnoreCase(textField.getText().trim())) {
+                            feedbackLabel.setText("Correct!");
+                            feedbackLabel.setForeground(new Color(34, 139, 34)); // Green
+                            keyList.remove(key[0]);
+                        } else {
+                            feedbackLabel.setText("Incorrect! Correct answer: " + vocabulary.get(key[0]));
+                            feedbackLabel.setForeground(Color.RED);
+                        }
+                        // clear text field
+                        textField.setText("");
+                        // get and display next question
+                        String newQuestion = getRandomQuestion(keyList);
+                        key[0] = newQuestion;
+                        questionLabel.setText(newQuestion);
+                    } catch (Exception error) {
+                        questionLabel.setText("Congratulations! You've completed all questions.");
+                        button.setEnabled(false);
+                        textField.setEnabled(false);
+                    }
+                }
+            }
+        });
 
         // Add panels to CardLayout
         cardPanel.add(quizPanel, "Quiz");
