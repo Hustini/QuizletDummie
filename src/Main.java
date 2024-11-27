@@ -37,30 +37,6 @@ public class Main {
         JPanel cardPanel = new JPanel(cardLayout);
         frame.add(cardPanel);
 
-        // Start screen panel
-        JPanel startScreenPanel = new JPanel();
-        startScreenPanel.setLayout(null);
-        startScreenPanel.setBackground(new Color(240, 248, 255));
-
-        // Buttons to choose a quiz
-        final File folder = new File("Data");
-        int startScreenBtnX = 10;
-        int startScreenBtnY = 10;
-        int buttonWidth = screenWidth / 4 - startScreenBtnX;
-        int buttonHeight = screenHeight / 4 - startScreenBtnY;
-        int padding = 10;
-
-        for (final File fileEntry : folder.listFiles()) {
-            JButton quizButtons = new JButton(fileEntry.getName());
-            quizButtons.setFont(new Font("Arial", Font.BOLD, 14));
-            quizButtons.setBackground(new Color(0, 102, 204)); // Blue
-            quizButtons.setForeground(Color.WHITE);
-            quizButtons.setBounds(startScreenBtnX, startScreenBtnY, buttonWidth, buttonHeight);
-            startScreenPanel.add(quizButtons);
-            startScreenBtnX += buttonWidth + padding;
-        }
-
-
         // Quiz Panel
         JPanel quizPanel = new JPanel();
         quizPanel.setLayout(null);
@@ -131,6 +107,62 @@ public class Main {
                 }
             }
         });
+
+        // Start screen panel
+        JPanel startScreenPanel = new JPanel();
+        startScreenPanel.setLayout(null);
+        startScreenPanel.setBackground(new Color(240, 248, 255));
+
+        // Buttons to choose a quiz
+        final File folder = new File("Data");
+        int startScreenBtnX = 10;
+        int startScreenBtnY = 10;
+        int buttonWidth = screenWidth / 4 - startScreenBtnX;
+        int buttonHeight = screenHeight / 4 - startScreenBtnY;
+        int padding = 10;
+
+        JButton quizButtons = null;
+        for (final File fileEntry : folder.listFiles()) {
+            quizButtons = new JButton(fileEntry.getName());
+            quizButtons.setFont(new Font("Arial", Font.BOLD, 14));
+            quizButtons.setBackground(new Color(0, 102, 204)); // Blue
+            quizButtons.setForeground(Color.WHITE);
+            quizButtons.setBounds(startScreenBtnX, startScreenBtnY, buttonWidth, buttonHeight);
+            startScreenPanel.add(quizButtons);
+            startScreenBtnX += buttonWidth + padding;
+
+            quizButtons.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    JButton clickedButton = (JButton) e.getSource();
+                    String selectedFileName = clickedButton.getText();
+                    String selectedFilePath = "Data/" + selectedFileName;
+
+                    HashMap<String, String> selectedVocabulary = readCSV(selectedFilePath);
+
+                    if (!selectedVocabulary.isEmpty()) {
+                        vocabulary.clear();
+                        vocabulary.putAll(selectedVocabulary);
+                        keyList.clear();
+                        keyList.addAll(vocabulary.keySet());
+
+                        // Set the first question
+                        key[0] = getRandomQuestion(keyList);
+                        questionLabel.setText(key[0]);
+
+                        // Reset quiz panel state
+                        feedbackLabel.setText("");
+                        textField.setText("");
+                        button.setEnabled(true);
+                        textField.setEnabled(true);
+
+                        // Switch to quiz panel
+                        cardLayout.show(cardPanel, "Quiz");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "The selected file is empty or invalid!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+        }
 
         // Add panels to CardLayout
         cardPanel.add(quizPanel, "Quiz");
