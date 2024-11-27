@@ -36,6 +36,11 @@ public class Main {
         JPanel cardPanel = new JPanel(cardLayout);
         frame.add(cardPanel);
 
+        // Start screen panel
+        JPanel startScreenPanel = new JPanel();
+        startScreenPanel.setLayout(null);
+        startScreenPanel.setBackground(new Color(240, 248, 255));
+
         // Quiz Panel
         JPanel quizPanel = new JPanel();
         quizPanel.setLayout(null);
@@ -109,9 +114,10 @@ public class Main {
 
         // Add panels to CardLayout
         cardPanel.add(quizPanel, "Quiz");
+        cardPanel.add(startScreenPanel, "Start Screen");
 
         // Show the quiz panel initially
-        cardLayout.show(cardPanel, "Quiz");
+        cardLayout.show(cardPanel, "Start Screen");
         frame.setVisible(true);
     }
 
