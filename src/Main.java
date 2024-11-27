@@ -33,10 +33,13 @@ public class Main {
 
         // Main Panel
         CardLayout cardLayout = new CardLayout();
-        JPanel screen1 = new JPanel(cardLayout);
-        screen1.setLayout(null);
-        screen1.setBackground(new Color(240, 248, 255)); // Light blue background
-        frame.add(screen1);
+        JPanel cardPanel = new JPanel(cardLayout);
+        frame.add(cardPanel);
+
+        // Quiz Panel
+        JPanel quizPanel = new JPanel();
+        quizPanel.setLayout(null);
+        quizPanel.setBackground(new Color(240, 248, 255));
 
         // Label for a title
         JLabel label = new JLabel("Quizlet Dummie");
@@ -44,7 +47,7 @@ public class Main {
         label.setForeground(new Color(0, 51, 102)); // Navy blue
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBounds(0, 20, screenWidth, 30);
-        screen1.add(label);
+        quizPanel.add(label);
 
         // First question
         final String[] key = {keyList.getFirst()};
@@ -53,14 +56,14 @@ public class Main {
         questionLabel.setForeground(new Color(0, 0, 0));
         questionLabel.setBounds(50, 100, screenWidth - 100, 30);
         questionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        screen1.add(questionLabel);
+        quizPanel.add(questionLabel);
 
         // Text field to get user input
         JTextField textField = new JTextField();
         textField.setFont(new Font("Arial", Font.PLAIN, 16));
         textField.setBounds(150, 150, 300, 30);
         textField.setHorizontalAlignment(SwingConstants.CENTER);
-        screen1.add(textField);
+        quizPanel.add(textField);
 
         // Button to check user input
         JButton button = new JButton("Check");
@@ -68,14 +71,14 @@ public class Main {
         button.setBackground(new Color(0, 102, 204)); // Blue
         button.setForeground(Color.WHITE);
         button.setBounds(250, 200, 100, 30);
-        screen1.add(button);
+        quizPanel.add(button);
 
         // Feedback label
         JLabel feedbackLabel = new JLabel("");
         feedbackLabel.setFont(new Font("Arial", Font.ITALIC, 16));
         feedbackLabel.setHorizontalAlignment(SwingConstants.CENTER);
         feedbackLabel.setBounds(50, 250, screenWidth - 100, 30);
-        screen1.add(feedbackLabel);
+        quizPanel.add(feedbackLabel);
 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -104,6 +107,11 @@ public class Main {
             }
         });
 
+        // Add panels to CardLayout
+        cardPanel.add(quizPanel, "Quiz");
+
+        // Show the quiz panel initially
+        cardLayout.show(cardPanel, "Quiz");
         frame.setVisible(true);
     }
 
