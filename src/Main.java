@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +41,25 @@ public class Main {
         JPanel startScreenPanel = new JPanel();
         startScreenPanel.setLayout(null);
         startScreenPanel.setBackground(new Color(240, 248, 255));
+
+        // Buttons to choose a quiz
+        final File folder = new File("Data");
+        int startScreenBtnX = 10;
+        int startScreenBtnY = 10;
+        int buttonWidth = screenWidth / 4 - startScreenBtnX;
+        int buttonHeight = screenHeight / 4 - startScreenBtnY;
+        int padding = 10;
+
+        for (final File fileEntry : folder.listFiles()) {
+            JButton quizButtons = new JButton(fileEntry.getName());
+            quizButtons.setFont(new Font("Arial", Font.BOLD, 14));
+            quizButtons.setBackground(new Color(0, 102, 204)); // Blue
+            quizButtons.setForeground(Color.WHITE);
+            quizButtons.setBounds(startScreenBtnX, startScreenBtnY, buttonWidth, buttonHeight);
+            startScreenPanel.add(quizButtons);
+            startScreenBtnX += buttonWidth + padding;
+        }
+
 
         // Quiz Panel
         JPanel quizPanel = new JPanel();
