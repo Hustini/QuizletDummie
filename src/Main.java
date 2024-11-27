@@ -85,7 +85,8 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == button) {
                     try {
-                        if (vocabulary.get(key[0]).equalsIgnoreCase(textField.getText().trim())) {
+                        // user input is checked
+                        if (vocabulary.get(key[0]).equals(textField.getText().trim())) {
                             feedbackLabel.setText("Correct!");
                             feedbackLabel.setForeground(new Color(34, 139, 34)); // Green
                             keyList.remove(key[0]);
@@ -139,27 +140,23 @@ public class Main {
 
                     HashMap<String, String> selectedVocabulary = readCSV(selectedFilePath);
 
-                    if (!selectedVocabulary.isEmpty()) {
-                        vocabulary.clear();
-                        vocabulary.putAll(selectedVocabulary);
-                        keyList.clear();
-                        keyList.addAll(vocabulary.keySet());
+                    vocabulary.clear();
+                    vocabulary.putAll(selectedVocabulary);
+                    keyList.clear();
+                    keyList.addAll(vocabulary.keySet());
 
-                        // Set the first question
-                        key[0] = getRandomQuestion(keyList);
-                        questionLabel.setText(key[0]);
+                    // Set the first question
+                    key[0] = getRandomQuestion(keyList);
+                    questionLabel.setText(key[0]);
 
-                        // Reset quiz panel state
-                        feedbackLabel.setText("");
-                        textField.setText("");
-                        button.setEnabled(true);
-                        textField.setEnabled(true);
+                    // Reset quiz panel state
+                    feedbackLabel.setText("");
+                    textField.setText("");
+                    button.setEnabled(true);
+                    textField.setEnabled(true);
 
-                        // Switch to quiz panel
-                        cardLayout.show(cardPanel, "Quiz");
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "The selected file is empty or invalid!", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    // Switch to quiz panel
+                    cardLayout.show(cardPanel, "Quiz");
                 }
             });
         }
