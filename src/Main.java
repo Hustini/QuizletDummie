@@ -16,7 +16,7 @@ public class Main {
         int screenHeight = 400;
 
         // Hashmap to store data
-        String filePath = "src/data.csv";
+        String filePath = "Data/data.csv";
         HashMap<String, String> vocabulary = readCSV(filePath);
         System.out.println("Vocab Hashmap:" + vocabulary);
 
