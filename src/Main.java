@@ -94,6 +94,14 @@ public class Main {
                             feedbackLabel.setText("Incorrect! Correct answer: " + vocabulary.get(key[0]));
                             feedbackLabel.setForeground(Color.RED);
                         }
+
+                        // check if learning set is over
+                        if (keyList.isEmpty()) {
+                            questionLabel.setText("Congratulations! You've completed all questions.");
+                            button.setEnabled(false);
+                            textField.setEnabled(false);
+                        }
+
                         // clear text field
                         textField.setText("");
                         // get and display next question
@@ -101,9 +109,7 @@ public class Main {
                         key[0] = newQuestion;
                         questionLabel.setText(newQuestion);
                     } catch (Exception error) {
-                        questionLabel.setText("Congratulations! You've completed all questions.");
-                        button.setEnabled(false);
-                        textField.setEnabled(false);
+                        error.printStackTrace();
                     }
                 }
             }
@@ -188,7 +194,12 @@ public class Main {
         /* First Step: get a random number from 0 to the length of the key list
         Second step: get the key with the index
          */
-        int randomIndex = (int) Math.floor(Math.random() * keyList.size());
-        return keyList.get(randomIndex);
+        try {
+            int randomIndex = (int) Math.floor(Math.random() * keyList.size());
+            return keyList.get(randomIndex);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index out of bounds");
+        }
+        return null;
     }
 }
