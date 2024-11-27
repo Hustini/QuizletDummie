@@ -139,27 +139,23 @@ public class Main {
 
                     HashMap<String, String> selectedVocabulary = readCSV(selectedFilePath);
 
-                    if (!selectedVocabulary.isEmpty()) {
-                        vocabulary.clear();
-                        vocabulary.putAll(selectedVocabulary);
-                        keyList.clear();
-                        keyList.addAll(vocabulary.keySet());
+                    vocabulary.clear();
+                    vocabulary.putAll(selectedVocabulary);
+                    keyList.clear();
+                    keyList.addAll(vocabulary.keySet());
 
-                        // Set the first question
-                        key[0] = getRandomQuestion(keyList);
-                        questionLabel.setText(key[0]);
+                    // Set the first question
+                    key[0] = getRandomQuestion(keyList);
+                    questionLabel.setText(key[0]);
 
-                        // Reset quiz panel state
-                        feedbackLabel.setText("");
-                        textField.setText("");
-                        button.setEnabled(true);
-                        textField.setEnabled(true);
+                    // Reset quiz panel state
+                    feedbackLabel.setText("");
+                    textField.setText("");
+                    button.setEnabled(true);
+                    textField.setEnabled(true);
 
-                        // Switch to quiz panel
-                        cardLayout.show(cardPanel, "Quiz");
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "The selected file is empty or invalid!", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    // Switch to quiz panel
+                    cardLayout.show(cardPanel, "Quiz");
                 }
             });
         }
