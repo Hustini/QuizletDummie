@@ -120,15 +120,22 @@ public class Main {
         startScreenPanel.setLayout(null);
         startScreenPanel.setBackground(new Color(240, 248, 255));
 
+        JLabel title = new JLabel("Quizlet Dummie");
+        title.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        title.setForeground(new Color(0, 51, 102)); // Navy blue
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setBounds(0, 20, screenWidth, 30);
+        startScreenPanel.add(title);
+
         // Buttons to choose a quiz
         final File folder = new File("Data");
         int startScreenBtnX = 10;
-        int startScreenBtnY = 10;
-        int buttonWidth = screenWidth / 4 - startScreenBtnX;
-        int buttonHeight = screenHeight / 4 - startScreenBtnY;
+        int startScreenBtnY = 70;
+        int buttonWidth = screenWidth / 4 - 10;
+        int buttonHeight = screenHeight / 8 - 10;
         int padding = 10;
 
-        JButton quizButtons = null;
+        JButton quizButtons;
         for (final File fileEntry : folder.listFiles()) {
             quizButtons = new JButton(fileEntry.getName());
             quizButtons.setFont(new Font("Arial", Font.BOLD, 14));
