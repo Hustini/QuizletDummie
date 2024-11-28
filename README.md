@@ -1,6 +1,7 @@
 # Quizlet Clone - Flashcard Application
 
 A simple, Quizlet-inspired flashcard application built using Java and the Swing library. This application allows users study, and quiz themselves on sets of vocabulary, all within a clean, user-friendly interface.
+> Note: Currently, the application stores data in a way that it can be overwritten later. This approach is not ideal, and I am actively working on improving the data management system to offer a more reliable and persistent solution.
 
 ## Technologies Used
 
