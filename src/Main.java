@@ -8,6 +8,10 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 
 public class Main {
@@ -173,6 +177,44 @@ public class Main {
                 }
             });
         }
+
+
+        // Add a button to open a file chooser dialog on the start screen
+        JButton selectFileButton = new JButton("Select File");
+        selectFileButton.setFont(new Font("Arial", Font.BOLD, 14));
+        selectFileButton.setBackground(new Color(0, 102, 204)); // Blue
+        selectFileButton.setForeground(Color.WHITE);
+        selectFileButton.setBounds(screenWidth / 2 - 75, screenHeight - 100, 150, 30);
+        startScreenPanel.add(selectFileButton);
+
+        selectFileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // opens file chooser dialog
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File("C:/Users/ejder/OneDrive - Bildungszentrum Zürichsee/Desktop"));
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                int result = fileChooser.showOpenDialog(frame);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String selectedFilePath = selectedFile.getAbsolutePath();
+                    System.out.println("Selected file: " + selectedFilePath);
+
+                    // Define source and target file paths
+                    Path sourcePath = Path.of(selectedFilePath);
+                    Path targetPath = Path.of("C:/JavaProjects/Quizlet Dummie/Data/" + selectedFile.getName());
+
+                    try {
+                        // Copy the file
+                        Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                        System.out.println("File copied successfully!");
+                    } catch (IOException error) {
+                        System.err.println("Failed to copy the file: " + error.getMessage());
+                    }
+                }
+            }
+        });
 
         // Add panels to CardLayout
         cardPanel.add(quizPanel, "Quiz");
