@@ -113,11 +113,13 @@ public class Main {
 
         // Buttons to choose a quiz
         final File folder = new File("Data");
-        int startScreenBtnX = 10;
+        int startScreenBtnX = 5;
         int startScreenBtnY = 70;
-        int buttonWidth = screenWidth / 4 - 10;
-        int buttonHeight = screenHeight / 8 - 10;
+        int buttonWidth = 137;
+        int buttonHeight = 40;
         int padding = 10;
+        int buttonsPerRow = 4;
+        int buttonCount = 0;
 
         JButton quizButtons;
         for (final File fileEntry : folder.listFiles()) {
@@ -128,6 +130,12 @@ public class Main {
             quizButtons.setBounds(startScreenBtnX, startScreenBtnY, buttonWidth, buttonHeight);
             startScreenPanel.add(quizButtons);
             startScreenBtnX += buttonWidth + padding;
+            buttonCount++;
+
+            if (buttonCount % buttonsPerRow == 0) {
+                startScreenBtnX = 5;
+                startScreenBtnY += buttonHeight + padding;
+            }
 
             quizButtons.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
