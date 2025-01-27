@@ -10,7 +10,10 @@ A simple, Quizlet-inspired flashcard application built using Java and the Swing 
 
 ## Screenshots
 
-> Add screenshots here once available, showing key features such as flashcard creation, study mode, and quiz mode.
+<div style="display: flex; justify-content: space-around; align-items: center; gap: 10px;">
+<img src="https://github.com/user-attachments/assets/2a6d4071-e715-4058-b17c-0e3d68748434" alt="screenQuizDummie" width="45%">
+<img src="https://github.com/user-attachments/assets/14e40700-7707-4670-85f3-2268b459c614" alt="screenQuizDummie2" width="45%">
+</div>
 
 ## Installation
 
