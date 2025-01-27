@@ -12,11 +12,6 @@ A simple, Quizlet-inspired flashcard application built using Java and the Swing 
 
 > Add screenshots here once available, showing key features such as flashcard creation, study mode, and quiz mode.
 
-## Planned Improvements
-
-- **Press Enter**: By pressing the enter you get to the next question
-- **Change the Layout of the learning sets**: Right the learning sets are placed with coordinates. I want to change it to a grid
-
 ## Installation
 
 1. **Clone the repository**:
