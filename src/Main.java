@@ -88,34 +88,14 @@ public class Main {
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == button) {
-                    try {
-                        // user input is checked
-                        if (vocabulary.get(key[0]).equals(textField.getText().trim())) {
-                            feedbackLabel.setText("Correct!");
-                            feedbackLabel.setForeground(new Color(34, 139, 34)); // Green
-                            keyList.remove(key[0]);
-                        } else {
-                            feedbackLabel.setText("Incorrect! Correct answer: " + vocabulary.get(key[0]));
-                            feedbackLabel.setForeground(Color.RED);
-                        }
-
-                        // check if learning set is over
-                        if (keyList.isEmpty()) {
-                            questionLabel.setText("Congratulations! You've completed all questions.");
-                            button.setEnabled(false);
-                            textField.setEnabled(false);
-                        }
-
-                        // clear text field
-                        textField.setText("");
-                        // get and display next question
-                        String newQuestion = getRandomQuestion(keyList);
-                        key[0] = newQuestion;
-                        questionLabel.setText(newQuestion);
-                    } catch (Exception error) {
-                        error.printStackTrace();
-                    }
+                    handleAction(vocabulary, key, textField, feedbackLabel, keyList, questionLabel, button);
                 }
+            }
+        });
+
+        textField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                handleAction(vocabulary, key, textField, feedbackLabel, keyList, questionLabel, button);
             }
         });
 
@@ -223,6 +203,36 @@ public class Main {
         // Show the quiz panel initially
         cardLayout.show(cardPanel, "Start Screen");
         frame.setVisible(true);
+    }
+
+    private static void handleAction(HashMap<String, String> vocabulary, String[] key, JTextField textField, JLabel feedbackLabel, ArrayList<String> keyList, JLabel questionLabel, JButton button) {
+        try {
+            // user input is checked
+            if (vocabulary.get(key[0]).equals(textField.getText().trim())) {
+                feedbackLabel.setText("Correct!");
+                feedbackLabel.setForeground(new Color(34, 139, 34)); // Green
+                keyList.remove(key[0]);
+            } else {
+                feedbackLabel.setText("Incorrect! Correct answer: " + vocabulary.get(key[0]));
+                feedbackLabel.setForeground(Color.RED);
+            }
+
+            // check if learning set is over
+            if (keyList.isEmpty()) {
+                questionLabel.setText("Congratulations! You've completed all questions.");
+                button.setEnabled(false);
+                textField.setEnabled(false);
+            }
+
+            // clear text field
+            textField.setText("");
+            // get and display next question
+            String newQuestion = getRandomQuestion(keyList);
+            key[0] = newQuestion;
+            questionLabel.setText(newQuestion);
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
     }
 
     public static HashMap<String, String> readCSV(String filePath) {
